@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Корзина</h1>
+{% if current_user.is_authenticated %}
+        {% if current_user.orders_id %}
+            <a>Ваши товары: {{current_user.orders_id}} (пока что тут только id товара)</a>
+        {% else %}
+            <a>Ваша корзина пуста</a>
+        {% endif %}
+{% else %}
+    <a>Чтобы увидеть товары в корзине, нужно авторизироваться</a>
+{% endif %}
+{% endblock %}

@@ -33,37 +33,50 @@ def main():
 
 @app.route("/")
 def index():
-    db_sess = db_session.create_session()
-    if current_user.is_authenticated:
-        user = db_sess.query(User)
-        print(user)
-    else:
-        return redirect('/login')
+    # db_sess = db_session.create_session()
+    # if current_user.is_authenticated:
+    #     user = db_sess.query(User)
+    #     print(user)
+    # else:
+    #     return redirect('/login')
     return render_template("main.html", title='Главная страница')
 
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def reqister():
-#     form = RegisterForm()
-#     if form.validate_on_submit():
-#         if form.password.data != form.password_again.data:
-#             return render_template('register.html', title='Регистрация', form=form,
-#                                    message="Пароли не совпадают")
-#         db_sess = db_session.create_session()
-#         if db_sess.query(User).filter(User.email == form.email.data).first():
-#             return render_template('register.html', title='Регистрация', form=form,
-#                                    message="Такой пользователь уже есть")
-#         user = User(
-#             surname=form.surname.data,
-#             name=form.name.data,
-#             email=form.email.data,
-#             age=form.age.data,
-#         )
-#         user.set_password(form.password.data)
-#         db_sess.add(user)
-#         db_sess.commit()
-#         return redirect('/login')
-#     return render_template('register.html', title='Регистрация', form=form)
+@app.route('/basket')
+def basket():
+    return render_template("basket.html", title='Корзина')
+
+
+@app.route('/favorites')
+def favorites():
+    # db_sess = db_session.create_session()
+    # if current_user.is_authenticated:
+    #     user = db_sess.query(User)
+
+    return render_template("favorites.html", title='Избранное')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def reqister():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Регистрация', form=form,
+                                   message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация', form=form,
+                                   message="Такой пользователь уже есть")
+        user = User(
+            surname=form.surname.data,
+            name=form.name.data,
+            email=form.email.data,
+        )
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect('/login')
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
