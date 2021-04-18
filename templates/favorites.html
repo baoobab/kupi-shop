@@ -3,7 +3,19 @@
 <h1>Избранное</h1>
 {% if current_user.is_authenticated %}
     {% if current_user.favs_id %}
-        <a>Ваши избранныек товары: {{current_user.favs_id}} (пока что тут только id товара)</a>
+        {% for item in goods %}
+                {% if item.id == current_user.favs_id %}
+            <div class="col-md6 border rounded">
+                <h4>{{item.title}} - {{item.cost}} руб.</h4>
+            <ul>
+                <a class="" href="/">
+            <img src={{item.image}} width="100" height="100"
+                 class="d-inline-block align-text-top">
+                {% endif %}
+                </a>
+            </ul>
+            </div>
+            {% endfor %}
     {% else %}
         <a>Вы ещё не добавили ни одного товара в избранное</a>
     {% endif %}

@@ -9,6 +9,7 @@ class Goods(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-
+    image = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     # users = orm.relation('users')

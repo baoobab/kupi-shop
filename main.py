@@ -33,27 +33,32 @@ def main():
 
 @app.route("/")
 def index():
-    # db_sess = db_session.create_session()
+    db_sess = db_session.create_session()
+    goods = db_sess.query(Goods)
+
     # if current_user.is_authenticated:
     #     user = db_sess.query(User)
     #     print(user)
     # else:
     #     return redirect('/login')
-    return render_template("main.html", title='Главная страница')
+    return render_template("main.html", title='Главная страница', goods=goods)
 
 
 @app.route('/basket')
 def basket():
-    return render_template("basket.html", title='Корзина')
+    db_sess = db_session.create_session()
+    goods = db_sess.query(Goods)
+    return render_template("basket.html", title='Корзина', goods=goods)
 
 
 @app.route('/favorites')
 def favorites():
-    # db_sess = db_session.create_session()
+    db_sess = db_session.create_session()
+    goods = db_sess.query(Goods)
     # if current_user.is_authenticated:
     #     user = db_sess.query(User)
 
-    return render_template("favorites.html", title='Избранное')
+    return render_template("favorites.html", title='Избранное', goods=goods)
 
 
 @app.route('/register', methods=['GET', 'POST'])

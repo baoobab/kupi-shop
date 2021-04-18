@@ -2,7 +2,30 @@
 
 {% block content %}
 <h1>Список товаров</h1>
-<a>(тут должны быть товары из базы данных)</a>
 
+<div class="col-md6 border rounded">
+    {% for item in goods %}
+    <p>
+        <tx>{{item.title}} - {{item.cost}} руб.</tx>
+        <a class="" href="/favorites">
+            {% if item.id == current_user.favs_id %}
+            <img src="/static/img/i2.png" align="right" width="20" height="20"
+                 class="d-inline-block align-text-top">
+            {% else %}
+            <img src="/static/img/i.png" align="right" width="20" height="20"
+                 class="d-inline-block align-text-top">
+            {% endif %}
+        </a>
+    </p>
+    <a>
+
+        <img src={{item.image}} alt="" width="150" height="150"
+             class="d-inline-block align-text-top">
+        <ul>
+        <h6>{{item.description}}</h6>
+        </ul>
+    </a>
+    {% endfor %}
+</div>
 
 {% endblock %}
