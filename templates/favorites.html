@@ -4,14 +4,16 @@
 {% if current_user.is_authenticated %}
     {% if current_user.favs_id %}
         {% for item in goods %}
-                {% if item.id == current_user.favs_id %}
+                {% for i in favs %}
+                    {% if item.id == i %}
             <div class="col-md6 border rounded">
                 <h4>{{item.title}} - {{item.cost}} руб.</h4>
             <ul>
                 <a class="" href="/">
             <img src={{item.image}} width="100" height="100"
                  class="d-inline-block align-text-top">
-                {% endif %}
+                    {% endif %}
+                    {% endfor %}
                 </a>
             </ul>
             </div>

@@ -12,4 +12,5 @@ class Goods(SqlAlchemyBase):
     cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     image = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+
     # users = orm.relation('users')

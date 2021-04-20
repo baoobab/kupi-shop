@@ -12,6 +12,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+favs = []
+ords = []
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -33,32 +36,44 @@ def main():
 
 @app.route("/")
 def index():
+    global favs, ords
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
-
+    if current_user.is_authenticated:
+        for i in current_user.favs_id.split(' '):
+            favs.append(int(i))
+        for j in current_user.orders_id.split(' '):
+            ords.append(int(j))
     # if current_user.is_authenticated:
     #     user = db_sess.query(User)
     #     print(user)
     # else:
     #     return redirect('/login')
-    return render_template("main.html", title='Главная страница', goods=goods)
+    return render_template("main.html", title='Главная страница', goods=goods, favs=favs, ords=ords)
 
 
 @app.route('/basket')
 def basket():
+    global ords
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
-    return render_template("basket.html", title='Корзина', goods=goods)
+    summ = 0
+    for i in goods:
+        if i.id in ords:
+            summ += i.cost
+    return render_template("basket.html", title='Корзина', goods=goods, ords=ords, summ=summ)
 
 
 @app.route('/favorites')
 def favorites():
+    global favs
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
+
     # if current_user.is_authenticated:
     #     user = db_sess.query(User)
 
-    return render_template("favorites.html", title='Избранное', goods=goods)
+    return render_template("favorites.html", title='Избранное', goods=goods, favs=favs)
 
 
 @app.route('/register', methods=['GET', 'POST'])

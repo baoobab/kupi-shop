@@ -1,31 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% set a = 0 %}
+{% set b = 0 %}
 <h1>Список товаров</h1>
 
-<div class="col-md6 border rounded">
+
     {% for item in goods %}
+    <div class="col-md6 border rounded">
     <p>
         <tx>{{item.title}} - {{item.cost}} руб.</tx>
-        <a class="" href="/favorites">
-            {% if item.id == current_user.favs_id %}
-            <img src="/static/img/i2.png" align="right" width="20" height="20"
-                 class="d-inline-block align-text-top">
-            {% else %}
-            <img src="/static/img/i.png" align="right" width="20" height="20"
-                 class="d-inline-block align-text-top">
-            {% endif %}
-        </a>
     </p>
     <a>
-
         <img src={{item.image}} alt="" width="150" height="150"
              class="d-inline-block align-text-top">
         <ul>
         <h6>{{item.description}}</h6>
         </ul>
+        {% if item.id in favs %}
+        <button type="button" class="btn btn-secondary" aria-current="page" >&#10003; В избранном</button>
+            {% else %}
+        <button type="button" class="btn btn-success" aria-current="page" >Добавить в избранное</button>
+        {% endif %}
+        {% if item.id in ords %}
+                <button type="button" class="btn btn-secondary" aria-current="page" >&#10003; В корзине</button>
+            {% else %}
+                <button type="button" class="btn btn-success" aria-current="page" >Добавить в корзину</button>
+            {% endif %}
     </a>
+    </div>
     {% endfor %}
-</div>
+
 
 {% endblock %}
