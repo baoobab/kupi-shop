@@ -10,7 +10,7 @@ idna==2.10
 lxml==4.6.1
 numpy==1.19.4
 Pillow==8.0.1
-SQAlchemy==1.3.23
+SQAlchemy==1.4.11
 SQAlchemy-serializer==1.3.4.4
 requests==2.25.1
 WTForms==2.3.3
