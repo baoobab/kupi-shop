@@ -9,7 +9,8 @@ from .db_session import SqlAlchemyBase
 class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
+                           autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     orders_id = sqlalchemy.Column(sqlalchemy.String, nullable=True)
@@ -17,7 +18,7 @@ class User(SqlAlchemyBase, UserMixin):
     email = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    # goods = orm.relation("goods")
+    # goods = orm.relation("Goods")
 
     def __repr__(self):
         return f'<User> {self.id} {self.name} {self.surname} {self.email}'

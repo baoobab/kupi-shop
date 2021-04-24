@@ -2,22 +2,22 @@
 {% block content %}
 <h1>Оплата товаров из корзины</h1>
 {% if current_user.is_authenticated %}
-{% if current_user.orders_id %}
+{% if ords %}
 <h4>Вы должны оплатить товары на сумму - {{summ}}</h4>
+
 <div>
-<form class="d-flex" method="post" novalidate>
-                        {{ form3.hidden_tag() }}
-                        {{ form3.ttle.label }}<br>
-                        {{ form3.ttle(class="form-control me-2") }}<br>
-                        {% for error in form3.ttle.errors %}
-                        <p class="alert alert-danger" role="alert">
-                        {{ error }}
-                        </p>
-                        {% endfor %}
-                        {{ form3.submit2(type="submit", class="btn
-                        btn-outline-success") }}
-                        {{ message }}
-                    </form>
+    <form class="d-flex" method="post" novalidate>
+        {{ form3.hidden_tag() }}
+        {{ form3.tttle.label }}<br>
+        {{ form3.tttle(class="form-control me-2") }}<br>
+        {% for error in form3.tttle.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        {{ form3.submit2(type="submit" class="btn
+        btn-outline-success") }}
+    </form>
 </div>
 {% for item in goods %}
 {% if item.id in ords %}

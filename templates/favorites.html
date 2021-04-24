@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Избранное</h1>
 {% if current_user.is_authenticated %}
-{% if current_user.favs_id %}
+{% if favs %}
 {% for item in goods %}
 {% if item.id in favs %}
 <div class="col-md6 border rounded">

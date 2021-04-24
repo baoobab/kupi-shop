@@ -7,4 +7,4 @@ from wtforms.validators import DataRequired
 class FavsForm(FlaskForm):
     ttle = StringField('', validators=[DataRequired()])
     submit = SubmitField('\u2713 В избранном')
-    submit2 = SubmitField('Добавить в избранное')
+    # submit2 = SubmitField('Добавить в избранное')

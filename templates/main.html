@@ -12,7 +12,13 @@
 <h1>Список всех товаров</h1>
 
 {% for item in goods %}
-
+<script>
+        function fg(){
+        {% if item.id == 1 %}
+           {{favs.append(item.id)}}
+           {% endif %}
+        }
+</script>
 <div class="col-md6 border rounded">
     <p>
     <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
@@ -33,13 +39,16 @@
         <img src={{item.image}} alt="" width="150" height="150"
              class="d-inline-block align-text-top">
         {% if item.id in favs %}
-        <button type="button" class="btn btn-secondary" aria-current="page">
+        <button type="button"
+                class="btn btn-secondary" aria-current="page">
             &#10003; В избранном
         </button>
         {% else %}
-        <button type="button" class="btn btn-success" aria-current="page">
+        <button type="button" class="btn btn-success"
+                aria-current="page">
             Добавить в избранное
         </button>
+
         {% endif %}
 
         {% if item.id in ords %}

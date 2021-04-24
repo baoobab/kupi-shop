@@ -9,6 +9,7 @@ from forms.search import SearchForm
 from forms.users import RegisterForm, LoginForm
 from forms.favs_b import FavsForm
 from forms.ords_b import OrdsForm
+from forms.add import AddForm
 from forms.pay import PayForm
 from data.goods import Goods
 from data.users import User
@@ -41,19 +42,14 @@ def logout():
 def main():
     db_session.global_init("db/db.db")
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='127.0.0.1', port=port)
+    app.run(port=port)
 
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     global favs, ords, res
     res.clear()
-
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -83,10 +79,6 @@ def basket():
     global ords, res
 
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -123,12 +115,10 @@ def pay():
         for i in goods:
             if str(form2.ttle.data).lower() in str(i.title).lower():
                 res.append(i.id)
-        print('seatr')
         return redirect('/search_results')
 
     form3 = PayForm()
     if form3.validate_on_submit():
-        print('farorarar')
         return redirect('/')
 
     return render_template("pay.html", title='Оплата', goods=goods,
@@ -140,10 +130,6 @@ def favorites():
     global favs, res
 
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -162,10 +148,6 @@ def favorites():
 def search_results():
     global favs, ords, res
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         res.clear()
         db_sess = db_session.create_session()
@@ -191,10 +173,6 @@ def cat(r):
     sl = {1: 'Телевизоры', 2: 'Смартфоны', 3: 'Одежда', 4: 'Обувь',
           5: 'Игрушки'}
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -219,10 +197,6 @@ def cat(r):
 def product(r):
     global favs, ords, res
     form = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -247,10 +221,6 @@ def reqister():
     global favs, res
 
     form2 = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form2.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -289,10 +259,6 @@ def login():
     global favs, res
 
     form2 = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form2.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
@@ -318,4 +284,3 @@ def login():
 
 if __name__ == '__main__':
     main()
-

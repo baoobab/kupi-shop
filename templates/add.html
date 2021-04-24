@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Добавление товара</h1>
+<form action="" method="post">
+    {{ form3.hidden_tag() }}
+    <p>
+        {{ form3.title.label }}<br>
+        {{ form3.title(class="form-control") }}<br>
+        {% for error in form3.title.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form3.description.label }}<br>
+        {{ form3.description(class="form-control") }}<br>
+        {% for error in form3.description.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form3.category.label }}<br>
+        {{ form3.category(class="form-control") }}<br>
+        {% for error in form3.category.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+
+
+
+    <p>{{ form3.submit(type="submit", class="btn btn-primary") }}</p>
+    {{ message }}
+</form>
+{% endblock %}

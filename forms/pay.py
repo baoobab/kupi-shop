@@ -5,6 +5,6 @@ from wtforms.validators import DataRequired
 
 
 class PayForm(FlaskForm):
-    ttle = StringField('Введите номер банковской карты',
-                       validators=[DataRequired()])
+    tttle = StringField('Введите номер банковской карты',
+                        validators=[DataRequired()])
     submit2 = SubmitField('Оплата')
