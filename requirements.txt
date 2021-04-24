@@ -1,7 +1,1 @@
-flask
-flask_login
-flask_wtf
-Jinja2
-sqlalchemy
-requests
-wtforms
+
