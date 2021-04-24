@@ -41,7 +41,7 @@ def logout():
 def main():
     db_session.global_init("db/db.db")
     port = int(os.environ.get("PORT", 5000))
-    app.run(port=port)
+    app.run(host='127.0.0.1', port=port)
 
 
 @app.route("/", methods=['GET', 'POST'])
