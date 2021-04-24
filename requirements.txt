@@ -1,6 +1,5 @@
 flask
 flask_login
-os
 flask_wtf
 Jinja2
 sqlalchemy
