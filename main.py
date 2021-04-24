@@ -40,7 +40,8 @@ def logout():
 
 def main():
     db_session.global_init("db/db.db")
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(port=port)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -316,5 +317,5 @@ def login():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    main()
+
