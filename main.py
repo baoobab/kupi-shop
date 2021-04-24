@@ -69,6 +69,9 @@ def index():
                         favs.append(i.id)
                     if i.id == j.orders_id:
                         ords.append(i.id)
+    else:
+        res.clear()
+        favs.clear()
     return render_template("main.html", title='Главная страница', goods=goods,
                            favs=favs, ords=ords,
                            form2=form)
