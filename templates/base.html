@@ -8,11 +8,14 @@
     color: #000000;
     padding-left: 15px;
    }
+
     tx {
-    font-size: 140%;
-    color: #000000;
-    padding: 15px;
-   }
+    font-size: 90%;
+    background-color: #d5ffe0;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 6px;
+    }
 
     </style>
     <meta charset="utf-8">
@@ -34,10 +37,14 @@
                 <lg>Kupi.ru</lg>
                 <a class="btn btn-outline-light" aria-current="page" href="/">Каталог</a>
                 <a>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Поиск по магазину"
-                               aria-label="Поиск">
-                        <button class="btn btn-outline-light" type="submit">Поиск</button>
+                    <form class="d-flex" method="post" novalidate>
+                        {{ form2.hidden_tag() }}
+                            {{ form2.ttle.label }}<br>
+                            {{ form2.ttle(class="form-control me-2") }}<br>
+
+                        {{ form2.submit(type="submit", class="btn btn-outline-light") }}
+
+                        {{ message }}
                     </form>
                     <div>
                         <a class="btn btn-outline-light" aria-current="page" href="/favorites">Избранное</a>

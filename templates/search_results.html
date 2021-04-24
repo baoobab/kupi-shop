@@ -1,18 +1,9 @@
 {% extends "base.html" %}
-
 {% block content %}
-<p align="center" style="font-size:35px">Категории</p>
-<p align="center">
-    <tx><a href="/categories/1">Теловизоры</a></tx>
-    <tx><a href="/categories/2">Смартфоны</a></tx>
-    <tx><a href="/categories/3">Одежда</a></tx>
-    <tx><a href="/categories/4">Обувь</a></tx>
-    <tx><a href="/categories/5">Игрушки</a></tx>
-</p>
-<h1>Список всех товаров</h1>
 
+<h2> Товаров по вашему запросу найдено - {{res|length}}</h2>
 {% for item in goods %}
-
+{% if item.id in res %}
 <div class="col-md6 border rounded">
     <p>
     <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
@@ -32,6 +23,7 @@
     <a>
         <img src={{item.image}} alt="" width="150" height="150"
              class="d-inline-block align-text-top">
+
         {% if item.id in favs %}
         <button type="button" class="btn btn-secondary" aria-current="page">&#10003; В избранном</button>
         {% else %}
@@ -45,7 +37,7 @@
         {% endif %}
     </a>
 </div>
-
+{% endif %}
 {% endfor %}
 
 {% endblock %}

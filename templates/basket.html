@@ -3,28 +3,37 @@
 <h1>Ваша корзина</h1>
 {% if current_user.is_authenticated %}
 <h4>Товаров в корзине на сумму - {{summ}}</h4>
-        {% if current_user.orders_id %}
-            {% for item in goods %}
-                {% for i in ords %}
-                    {% if item.id == i %}
-            <div class="col-md6 border rounded">
-                <h4>{{item.title}} - {{item.cost}} руб.</h4>
-            <ul>
-                <a class="" href="/">
+{% if current_user.orders_id %}
+{% for item in goods %}
+{% if item.id in ords %}
+<div class="col-md6 border rounded">
+    <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+        {% for j in range(item.rate) %}
+        <img align="center" src=/static/img/i2.png alt="" width="25" height="25"
+             class="d-inline-block align-text-top">
+        {% endfor %}
+        {% if 5 - item.rate > 0 %}
+        {% for j in range(5 - item.rate) %}
+        <img align="center" src=/static/img/i.png alt="" width="25" height="25"
+             class="d-inline-block align-text-top">
+        {% endfor %}
+        {% endif %}
+    </h4>
+    <ul>
+        <a class="" href="/">
             <img src={{item.image}} width="100" height="100"
                  class="d-inline-block align-text-top">
-                        {% endif %}
-                    {% endfor %}
-                </a>
-            </ul>
-            </div>
-            {% endfor %}
-        {% else %}
-            <a>Ваша корзина пуста</a>
-
-        {% endif %}
+            {% endif %}
+        </a>
+    </ul>
+</div>
+{% endfor %}
 {% else %}
-    <a>Чтобы увидеть товары в корзине, нужно авторизироваться</a>
+<a>Ваша корзина пуста</a>
+
+{% endif %}
+{% else %}
+<a>Чтобы увидеть товары в корзине, нужно авторизироваться</a>
 {% endif %}
 
 {% endblock %}
