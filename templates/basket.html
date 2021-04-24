@@ -2,7 +2,9 @@
 {% block content %}
 <h1>Ваша корзина</h1>
 {% if current_user.is_authenticated %}
-<h4>Товаров в корзине на сумму - {{summ}}</h4>
+<h4>Товаров в корзине на сумму - {{summ}} <a class="btn btn-outline-success"
+                                             href="/pay">Оплатить всё</a></h4>
+
 {% if current_user.orders_id %}
 {% for item in goods %}
 {% if item.id in ords %}

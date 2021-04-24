@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Оплата товаров из корзины</h1>
+{% if current_user.is_authenticated %}
+{% if current_user.orders_id %}
+<h4>Вы должны оплатить товары на сумму - {{summ}}</h4>
+<div>
+<form class="d-flex" method="post" novalidate>
+                        {{ form3.hidden_tag() }}
+                        {{ form3.ttle.label }}<br>
+                        {{ form3.ttle(class="form-control me-2") }}<br>
+                        {% for error in form3.ttle.errors %}
+                        <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                        </p>
+                        {% endfor %}
+                        {{ form3.submit2(type="submit", class="btn
+                        btn-outline-success") }}
+                        {{ message }}
+                    </form>
+</div>
+{% for item in goods %}
+{% if item.id in ords %}
+<div class="col-md6 border rounded">
+    <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}}
+        руб.
+        {% for j in range(item.rate) %}
+        <img align="center" src=/static/img/i2.png alt="" width="25"
+             height="25"
+             class="d-inline-block align-text-top">
+        {% endfor %}
+        {% if 5 - item.rate > 0 %}
+        {% for j in range(5 - item.rate) %}
+        <img align="center" src=/static/img/i.png alt="" width="25"
+             height="25"
+             class="d-inline-block align-text-top">
+        {% endfor %}
+        {% endif %}
+    </h4>
+    <ul>
+        <a class="" href="/">
+            <img src={{item.image}} width="100" height="100"
+                 class="d-inline-block align-text-top">
+            {% endif %}
+        </a>
+    </ul>
+</div>
+{% endfor %}
+{% else %}
+<a>Ваша корзина пуста, оплачивать нечего</a>
+
+{% endif %}
+{% else %}
+<a>Чтобы увидеть товары для оплаты, нужно авторизироваться</a>
+{% endif %}
+
+{% endblock %}

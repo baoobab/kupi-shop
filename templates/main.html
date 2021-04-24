@@ -33,15 +33,23 @@
         <img src={{item.image}} alt="" width="150" height="150"
              class="d-inline-block align-text-top">
         {% if item.id in favs %}
-        <button type="button" class="btn btn-secondary" aria-current="page">&#10003; В избранном</button>
+        <button type="button" class="btn btn-secondary" aria-current="page">
+            &#10003; В избранном
+        </button>
         {% else %}
-        <button type="button" class="btn btn-success" aria-current="page">Добавить в избранное</button>
+        <button type="button" class="btn btn-success" aria-current="page">
+            Добавить в избранное
+        </button>
         {% endif %}
 
         {% if item.id in ords %}
-        <button type="button" class="btn btn-secondary" aria-current="page">&#10003; В корзине</button>
+        <button type="button" class="btn btn-secondary" aria-current="page">
+            &#10003; В корзине
+        </button>
         {% else %}
-        <button type="button" class="btn btn-success" aria-current="page">Добавить в корзину</button>
+        <button type="button" class="btn btn-success" aria-current="page">
+            Добавить в корзину
+        </button>
         {% endif %}
     </a>
 </div>
