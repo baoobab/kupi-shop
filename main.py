@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, request
 from flask_login import LoginManager, login_user, login_required, logout_user, \
     current_user
@@ -114,23 +116,18 @@ def pay():
             summ += i.cost
 
     form2 = SearchForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
-
     if form2.validate_on_submit():
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
         for i in goods:
             if str(form2.ttle.data).lower() in str(i.title).lower():
                 res.append(i.id)
+        print('seatr')
         return redirect('/search_results')
 
     form3 = PayForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        goods = db_sess.query(Goods)
     if form3.validate_on_submit():
+        print('farorarar')
         return redirect('/')
 
     return render_template("pay.html", title='Оплата', goods=goods,
@@ -169,6 +166,7 @@ def search_results():
         goods = db_sess.query(Goods)
 
     if form.validate_on_submit():
+        res.clear()
         db_sess = db_session.create_session()
         goods = db_sess.query(Goods)
         for i in goods:
@@ -318,4 +316,5 @@ def login():
 
 
 if __name__ == '__main__':
-    main()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
