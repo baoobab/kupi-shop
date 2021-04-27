@@ -61,7 +61,6 @@ def index():
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
     a = db_sess.query(Association)
-    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         for i in goods:
             for j in a:
