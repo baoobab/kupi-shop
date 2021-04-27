@@ -61,6 +61,7 @@ def index():
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
     a = db_sess.query(Association)
+    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         for i in goods:
             for j in a:
@@ -72,6 +73,7 @@ def index():
     else:
         res.clear()
         favs.clear()
+        ords.clear()
     return render_template("main.html", title='Главная страница', goods=goods,
                            favs=favs, ords=ords,
                            form2=form)
