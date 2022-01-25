@@ -19,11 +19,12 @@ from data import db_session
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = 'secreret123123'
 
 favs = []
 ords = []
 res = []
+categories = ['Телевизоры', 'Смартфоны', 'Одежда', 'Обувь', 'Игрушки']
 
 
 @login_manager.user_loader
@@ -45,9 +46,11 @@ def main():
     app.run(port=port)
 
 
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    global favs, ords, res
+    global favs, ords, res, categories
     res.clear()
     form = SearchForm()
     if form.validate_on_submit():
@@ -57,7 +60,6 @@ def index():
             if str(form.ttle.data).lower() in str(i.title).lower():
                 res.append(i.id)
         return redirect('/search_results')
-
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
     a = db_sess.query(Association)
@@ -73,15 +75,27 @@ def index():
         res.clear()
         favs.clear()
         ords.clear()
+
+    form4 = FavsForm()
+    if form4.validate_on_submit():
+        print(form4)
+        db_sess = db_session.create_session()
+        assoc = Association(
+            user_id=current_user.id,
+            favs_id=form4.favs_id.data,
+            orders_id=0,
+            o_count=0
+        )
+        db_sess.add(assoc)
+        db_sess.commit()
     return render_template("main.html", title='Главная страница', goods=goods,
                            favs=favs, ords=ords,
-                           form2=form)
+                           form2=form, form4=form4, cats=categories)
 
 
 @app.route('/basket', methods=['GET', 'POST'])
 def basket():
     global ords, res
-
     form = SearchForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -100,6 +114,36 @@ def basket():
 
     return render_template("basket.html", title='Корзина', goods=goods,
                            ords=ords, summ=summ, form2=form)
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    form2 = SearchForm()
+    if form2.validate_on_submit():
+        db_sess = db_session.create_session()
+        goods = db_sess.query(Goods)
+        for i in goods:
+            if str(form2.ttle.data).lower() in str(i.title).lower():
+                res.append(i.id)
+        return redirect('/search_results')
+
+    form3 = AddForm()
+    if form3.validate_on_submit():
+        db_sess = db_session.create_session()
+        product = Goods(
+            title=form3.title.data,
+            cost=form3.cost.data,
+            description=form3.description.data,
+            category=form3.category.data,
+            rate=form3.rate.data,
+            image=form3.image.data,
+        )
+        db_sess.add(product)
+        db_sess.commit()
+        return redirect('/')
+    print(favs)
+    return render_template('add.html', title='Добавление товара', form2=form2,
+                           form3=form3)
 
 
 @app.route('/pay', methods=['GET', 'POST'])
@@ -132,7 +176,7 @@ def pay():
 @app.route('/favorites', methods=['GET', 'POST'])
 def favorites():
     global favs, res
-
+    print(favs)
     form = SearchForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
