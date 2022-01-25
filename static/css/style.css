@@ -1,3 +1,24 @@
 pp {
-  padding-left: 20px;
+    padding-left: 20px;
+}
+
+.item {
+    border: 1px solid green;
+    border-radius: 30px;
+}
+
+.itemin {
+    padding: 13px 15px;
+}
+.cat {
+    text-decoration: none;
+    color: black;
+}
+
+.checks {
+    display: flex;
+}
+
+.chitem {
+margin-left: 860px;
 }
