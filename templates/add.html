@@ -13,9 +13,27 @@
     {% endfor %}
     </p>
     <p>
+        {{ form3.cost.label }}<br>
+        {{ form3.cost(class="form-control") }}<br>
+        {% for error in form3.cost.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>
         {{ form3.description.label }}<br>
         {{ form3.description(class="form-control") }}<br>
         {% for error in form3.description.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form3.rate.label }}<br>
+        {{ form3.rate(class="form-control") }}<br>
+        {% for error in form3.rate.errors %}
     <p content="alert alert-danger" role="alert">
         {{ error }}
     </p>
