@@ -3,7 +3,7 @@
 
 {% for item in goods %}
 {% if item.id == i_id %}
-<div class="col-md6 border rounded">
+<div class="item">
     <p>
     <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
         {% for j in range(item.rate) %}
@@ -17,17 +17,17 @@
         {% endfor %}
         {% endif %}
     </h4>
-    <tx>{{item.category}}</tx>
+    <h4 class="tx">{{item.category}}</h4>
     </p>
     </div>
+<div class="col-md6 border rounded">
     <a>
-        <img align="left" src={{item.image}} alt="" width="400" height="400"
-             class="d-inline-block align-text-top">
+        <img align="left" src={{item.image}} alt="" width="400" height="370">
         <ul>
             <h6 align="right">{{item.description}}</h6>
         </ul>
     </a>
-
+</div>
 {% endif %}
 {% endfor %}
 
