@@ -3,7 +3,7 @@
 {% block content %}
 
 <script type="text/javascript">
-function fun1(name) {
+function fun1(name, lst) {
 var chbox;
 chbox=document.getElementById(name);
 	if (chbox.checked) {
@@ -13,6 +13,7 @@ chbox=document.getElementById(name);
 		alert(name);
 	}
 }
+
 
 
 </script>
@@ -31,12 +32,13 @@ chbox=document.getElementById(name);
 }
 
 
+
 </script>
 
 <p align="center" style="font-size:35px">Категории</p>
 <p align="center">
     {% for g in cats %}
-    <tx><a href="/categories/{{cats.index(g) + 1}}">{{g}}</a></tx>
+    <a class="btn btn-outline-success" href="/categories/{{cats.index(g) + 1}}">{{g}}</a>
     {% endfor %}
 </p>
 <h1>Список всех товаров</h1>
@@ -56,30 +58,28 @@ chbox=document.getElementById(name);
              class="d-inline-block align-text-top">
         {% endfor %}
         {% endif %}
-        <tx>{{item.category}}</tx>
+        <h4 class="tx">{{item.category}}</h4>
     </div>
-    <a>
-        <img src={{item.image}} alt="" width="150" height="150"
+    <div>
+        <img src={{item.image}} alt="" width="170" height="150"
              class="d-inline-block align-text-top">
-        <div class="checks">
-            <div class="chitem" align="center">
-                {% if item.id in favs %}
-                <input type="checkbox" id="{{item.id}}" onclick="{{favs.remove(item.id)}}" onchange="fun1(id)" checked>
-                <label>В избранном</label>
-                {% else %}
-                <input type="checkbox" id="{{item.id}}" onclick="{{favs.append(item.id)}}" onchange="fun1(id)">
-                <label>В избранном</label>
-                {% endif %}
-                {% if item.id in ords %}
-                <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)" checked>
-                <label>В корзине</label>
-                {% else %}
-                <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)">
-                <label>В корзине{{favs}}</label>
-            </div>
+        <div class="chitem" align="center">
+            {% if item.id in favs %}
+            <input type="checkbox" id="{{item.id}}" onclick="{{favs.remove(item.id)}}" onchange="fun1(id)" checked>
+            <label>В избранном</label>
+            {% else %}
+            <input type="checkbox" id="{{item.id}}" onclick="{{favs.append(item.id)}}" onchange="fun1(id)">
+            <label>В избранном</label>
+            {% endif %}
+            {% if item.id in ords %}
+            <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)" checked>
+            <label>В корзине</label>
+            {% else %}
+            <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)">
+            <label>В корзине</label>
             {% endif %}
         </div>
-    </a>
+    </div>
 </div>
 
 {% endfor %}
