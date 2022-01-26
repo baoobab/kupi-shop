@@ -4,7 +4,9 @@ pp {
 
 .item {
     border: 1px solid green;
-    border-radius: 30px;
+    border-radius: 10px;
+    padding: 7px;
+    margin: 2px;
 }
 
 .itemin {
@@ -16,9 +18,28 @@ pp {
 }
 
 .checks {
-    display: flex;
+    display: inline-block;
+    border: 1px solid red;
 }
 
 .chitem {
 margin-left: 860px;
+}
+
+.ll {
+display:inline-block;
+line-height: 2em;
+}
+
+.tx {
+    font-size: 90%;
+    color: #23a843;
+    border: 1px solid #23a843;
+    border-radius: 5px;
+    padding: 6px;
+    display:inline-block;
+    }
+
+.asd {
+padding: 15px;
 }
