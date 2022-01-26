@@ -24,18 +24,6 @@
 <div class="col-md6 border rounded">
     <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}}
         руб.
-        {% for j in range(item.rate) %}
-        <img align="center" src=/static/img/i2.png alt="" width="25"
-             height="25"
-             class="d-inline-block align-text-top">
-        {% endfor %}
-        {% if 5 - item.rate > 0 %}
-        {% for j in range(5 - item.rate) %}
-        <img align="center" src=/static/img/i.png alt="" width="25"
-             height="25"
-             class="d-inline-block align-text-top">
-        {% endfor %}
-        {% endif %}
     </h4>
     <ul>
         <a class="" href="/">
