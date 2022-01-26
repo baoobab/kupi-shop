@@ -27,6 +27,25 @@ res = []
 categories = ['Телевизоры', 'Смартфоны', 'Одежда', 'Обувь', 'Игрушки']
 
 
+def load_items():
+    global favs, ords
+    db_sess = db_session.create_session()
+    goods = db_sess.query(Goods)
+    a = db_sess.query(Association)
+    if current_user.is_authenticated:
+        for i in goods:
+            for j in a:
+                if current_user.id == j.user_id:
+                    if i.id == j.favs_id:
+                        favs.append(i.id)
+                    if i.id == j.orders_id:
+                        ords.append(i.id)
+    else:
+        res.clear()
+        favs.clear()
+        ords.clear()
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -46,8 +65,6 @@ def main():
     app.run(port=port)
 
 
-
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     global favs, ords, res, categories
@@ -62,20 +79,7 @@ def index():
         return redirect('/search_results')
     db_sess = db_session.create_session()
     goods = db_sess.query(Goods)
-    a = db_sess.query(Association)
-    if current_user.is_authenticated:
-        for i in goods:
-            for j in a:
-                if current_user.id == j.user_id:
-                    if i.id == j.favs_id:
-                        favs.append(i.id)
-                    if i.id == j.orders_id:
-                        ords.append(i.id)
-    else:
-        res.clear()
-        favs.clear()
-        ords.clear()
-
+    load_items()
     form4 = FavsForm()
     if form4.validate_on_submit():
         print(form4)
@@ -96,6 +100,7 @@ def index():
 @app.route('/basket', methods=['GET', 'POST'])
 def basket():
     global ords, res
+    load_items()
     form = SearchForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -111,7 +116,7 @@ def basket():
     for i in goods:
         if i.id in ords:
             summ += i.cost
-
+    ords = [4, 2, 1]
     return render_template("basket.html", title='Корзина', goods=goods,
                            ords=ords, summ=summ, form2=form)
 
@@ -176,7 +181,7 @@ def pay():
 @app.route('/favorites', methods=['GET', 'POST'])
 def favorites():
     global favs, res
-    print(favs)
+    load_items()
     form = SearchForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
