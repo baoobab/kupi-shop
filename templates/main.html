@@ -2,34 +2,28 @@
 
 {% block content %}
 
-<script type="text/javascript">
-function fun1(name, lst) {
-var chbox;
-chbox=document.getElementById(name);
-	if (chbox.checked) {
-		alert('Выбран избр');
-	}
-	else {
-		alert(name);
-	}
-}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<script type=text/javascript>
+    function func(id, type){
+    $.ajax({
+        url : "func_run", // the endpoint
+        type : "GET", // http method
+        data : { par_1 : id,
+                 par_2 : document.getElementById(id).checked,
+                 par_3 : type }, // data sent with the request
+        // for successful response
+        success : function(json) {
+            console.log("success"); // another sanity check
+            },
 
+        // for non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide info about the error to the console
+            }
+    });
+};
 
-</script>
-
-<script type="text/javascript">
-function fun2(name) {
-var chbox;
-chbox=document.getElementById(name);
-	if (chbox.checked) {
-		alert('Выбран корзина');
-	}
-	else {
-		alert(name);
-
-	}
-}
 
 
 
@@ -41,10 +35,18 @@ chbox=document.getElementById(name);
     <a class="btn btn-outline-success" href="/categories/{{cats.index(g) + 1}}">{{g}}</a>
     {% endfor %}
 </p>
+
 <h1>Список всех товаров</h1>
+
 {% for item in goods %}
-<div class="item">
-    <div class="itemin">
+
+<div class="row item">
+
+    <div class="col-3 itemin">
+        <img src={{item.image}} alt="" width="150" height="150"
+             class="d-inline-block align-text-top">
+    </div>
+    <div class="col itemin">
         <h4>
             <a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
         </h4>
@@ -59,27 +61,32 @@ chbox=document.getElementById(name);
         {% endfor %}
         {% endif %}
         <h4 class="tx">{{item.category}}</h4>
-    </div>
-    <div>
-        <img src={{item.image}} alt="" width="170" height="150"
-             class="d-inline-block align-text-top">
-        <div class="chitem" align="center">
-            {% if item.id in favs %}
-            <input type="checkbox" id="{{item.id}}" onclick="{{favs.remove(item.id)}}" onchange="fun1(id)" checked>
-            <label>В избранном</label>
-            {% else %}
-            <input type="checkbox" id="{{item.id}}" onclick="{{favs.append(item.id)}}" onchange="fun1(id)">
-            <label>В избранном</label>
-            {% endif %}
-            {% if item.id in ords %}
-            <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)" checked>
-            <label>В корзине</label>
-            {% else %}
-            <input type="checkbox" id="0{{item.id}}" onchange="fun2(id)">
-            <label>В корзине</label>
-            {% endif %}
+
+        <div class="checks" align="right">
+            <div>
+                <div class="form-check form-check-inline">
+                    {% if item.id in favs %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)">
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% endif %}
+
+                    {% if item.id in ords %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
 {% endfor %}
