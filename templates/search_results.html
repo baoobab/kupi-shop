@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<p align="center" style="font-size:35px">Категории</p>
+<p align="center">
+    {% for g in cats %}
+    <a class="btn btn-outline-success" href="/categories/{{cats.index(g) + 1}}">{{g}}</a>
+    {% endfor %}
+</p>
+
 <h2> Товаров по вашему запросу найдено - {{res|length}}</h2>
 {% for item in goods %}
 {% if item.id in res %}
