@@ -19,7 +19,8 @@ pp {
 
 .checks {
     display: inline-block;
-    border: 1px solid red;
+    margin-left: 66%;
+    margin-top: 5%;
 }
 
 .chitem {
