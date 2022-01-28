@@ -11,9 +11,16 @@
 <h2> Товаров по вашему запросу найдено - {{res|length}}</h2>
 {% for item in goods %}
 {% if item.id in res %}
-<div class="col-md6 border rounded">
-    <p>
-    <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+<div class="row item">
+
+    <div class="col-3 itemin">
+        <img src={{item.image}} alt="" width="150" height="150"
+             class="d-inline-block align-text-top">
+    </div>
+    <div class="col itemin">
+        <h4>
+            <a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+        </h4>
         {% for j in range(item.rate) %}
         <img align="center" src=/static/img/i2.png alt="" width="25" height="25"
              class="d-inline-block align-text-top">
@@ -24,33 +31,33 @@
              class="d-inline-block align-text-top">
         {% endfor %}
         {% endif %}
-    </h4>
-    <tx>{{item.category}}</tx>
-    </p>
-    <a>
-        <img src={{item.image}} alt="" width="150" height="150"
-             class="d-inline-block align-text-top">
+        <h4 class="tx">{{item.category}}</h4>
 
-        {% if item.id in favs %}
-        <button type="button" class="btn btn-secondary" aria-current="page">
-            &#10003; В избранном
-        </button>
-        {% else %}
-        <button type="button" class="btn btn-success" aria-current="page">
-            Добавить в избранное
-        </button>
-        {% endif %}
+        <div class="checks" align="right">
+            <div>
+                <div class="form-check form-check-inline">
+                    {% if item.id in favs %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)">
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% endif %}
 
-        {% if item.id in ords %}
-        <button type="button" class="btn btn-secondary" aria-current="page">
-            &#10003; В корзине
-        </button>
-        {% else %}
-        <button type="button" class="btn btn-success" aria-current="page">
-            Добавить в корзину
-        </button>
-        {% endif %}
-    </a>
+                    {% if item.id in ords %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endif %}
 {% endfor %}
