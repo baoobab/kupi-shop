@@ -54,3 +54,15 @@ padding: 15px;
     height:400px;
 }
 
+.pay {
+padding-top: 10px;
+padding-bottom: 10px
+}
+
+.prod_url {
+color: #23a843;
+text-decoration: none;
+}
+.prod_url:hover {
+    color: green;
+   }
