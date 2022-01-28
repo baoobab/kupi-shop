@@ -1,43 +1,81 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Ваша корзина</h1>
-{% if current_user.is_authenticated %}
-<div class="ll">
-<h4 class="ll" align="center">Товаров в корзине на сумму - {{summ}} рублей</h4>
-    <a class="btn btn-outline-success" href="/pay">Оплатить выбранное</a>
-</div>
-<script type="text/javascript">
-function fun1(name, ls) {
-var chbox;
-chbox=document.getElementById(name);
-	if (chbox.checked) {
-		alert(ls);
-	}
-	else {
-		alert(name);
-	}
-}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type=text/javascript>
+    function func(id, type){
+    $.ajax({
+        url : "/func_run", // the endpoint
+        type : "GET", // http method
+        data : { par_1 : id,
+                 par_2 : document.getElementById(id).checked,
+                 par_3 : type }, // data sent with the request
+        // for successful response
+        success : function(json) {
+            console.log("success"); // another sanity check
+            },
+
+        // for non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide info about the error to the console
+            }
+    });
+};
+
+
+
+
+
+
+
 
 
 </script>
 
+
+<h1>Ваша корзина</h1>
+{% if current_user.is_authenticated %}
+<div class="ll">
+    <h4 class="ll" align="center">Товаров в корзине на сумму - {{summ}} рублей</h4>
+    <a class="btn btn-outline-success" href="/pay">Оплатить выбранные</a>
+</div>
+
 {% if ords %}
 {% for item in goods %}
 {% if item.id in ords %}
-<div class="col-md6 border rounded">
-    <h4>
-        <input class="ll" align="left" type="checkbox" id="{{item.id}}" onchange="fun1(id, {{ords}})" checked>
 
-        <a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
-    </h4>
-    <ul>
-        <a href="/">
-            <img src={{item.image}} width="100" height="100"
-                 class="d-inline-block align-text-top">
-            {% endif %}
-        </a>
-    </ul>
+<div class="row item">
+
+    <div class="col-3 itemin">
+        <img src={{item.image}} alt="" width="150" height="150"
+             class="d-inline-block align-text-top">
+    </div>
+    <div class="col itemin">
+        <h4>
+            <a class="prod_url" href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+        </h4>
+
+        <h4 class="tx">{{item.category}}</h4>
+
+        <div class="checks" align="right">
+            <div>
+                <div class="form-check form-check-inline">
+                    {% if item.id in ords %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзине</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+{% endif %}
 {% endfor %}
 {% else %}
 <a>Ваша корзина пуста</a>
