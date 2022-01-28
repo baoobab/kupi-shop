@@ -19,14 +19,39 @@
     </h4>
     <h4 class="tx">{{item.category}}</h4>
     </p>
-    </div>
-<div class="col-md6 border rounded">
-    <a>
+</div>
+
+<div class="row item">
+
+    <div class="col-5 itemin">
         <img align="left" src={{item.image}} alt="" width="400" height="370">
-        <ul>
-            <h6 align="right">{{item.description}}</h6>
-        </ul>
-    </a>
+    </div>
+    <div class="col itemin">
+        <h6 align="right">{{item.description}}</h6>
+        <div class="checks" align="right">
+            <div>
+                <div class="form-check form-check-inline">
+                    {% if item.id in favs %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)">
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% endif %}
+
+                    {% if item.id in ords %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endif %}
 {% endfor %}
