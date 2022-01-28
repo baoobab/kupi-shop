@@ -26,6 +26,7 @@
 
 
 
+
 </script>
 
 <p align="center" style="font-size:35px">Категории</p>
@@ -73,9 +74,6 @@
                     <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
                     {% endif %}
 
-                </div>
-
-                <div class="form-check form-check-inline">
                     {% if item.id in ords %}
                     <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
                            checked>
