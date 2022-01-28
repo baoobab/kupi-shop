@@ -19,7 +19,7 @@
     </div>
     <div class="col itemin">
         <h4>
-            <a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+            <a class="prod_url" href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
         </h4>
         {% for j in range(item.rate) %}
         <img align="center" src=/static/img/i2.png alt="" width="25" height="25"
@@ -39,7 +39,7 @@
                     {% if item.id in favs %}
                     <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
                            checked>
-                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранном</label>
                     {% else %}
                     <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)">
                     <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
@@ -48,7 +48,7 @@
                     {% if item.id in ords %}
                     <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
                            checked>
-                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзине</label>
                     {% else %}
                     <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
                     <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
