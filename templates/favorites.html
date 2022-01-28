@@ -1,12 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type=text/javascript>
+    function func(id, type){
+    $.ajax({
+        url : "/func_run", // the endpoint
+        type : "GET", // http method
+        data : { par_1 : id,
+                 par_2 : document.getElementById(id).checked,
+                 par_3 : type }, // data sent with the request
+        // for successful response
+        success : function(json) {
+            console.log("success"); // another sanity check
+            },
+
+        // for non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide info about the error to the console
+            }
+    });
+};
+
+
+
+
+
+
+</script>
+
 <h1>Избранное</h1>
 {% if current_user.is_authenticated %}
 {% if favs %}
 {% for item in goods %}
 {% if item.id in favs %}
-<div class="col-md6 border rounded">
-    <h4><a href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+
+<div class="row item">
+
+    <div class="col-3 itemin">
+        <img src={{item.image}} alt="" width="150" height="150"
+             class="d-inline-block align-text-top">
+    </div>
+    <div class="col itemin">
+        <h4>
+            <a class="prod_url" href="/product/{{ item.id }}">{{item.title}}</a> - {{item.cost}} руб.
+        </h4>
         {% for j in range(item.rate) %}
         <img align="center" src=/static/img/i2.png alt="" width="25" height="25"
              class="d-inline-block align-text-top">
@@ -17,16 +56,27 @@
              class="d-inline-block align-text-top">
         {% endfor %}
         {% endif %}
-    </h4>
-    <ul>
-        <a class="" href="/">
-            <img src={{item.image}} width="100" height="100"
-                 class="d-inline-block align-text-top">
-            {% endif %}
+        <h4 class="tx">{{item.category}}</h4>
 
-        </a>
-    </ul>
+        <div class="checks" align="right">
+            <div align="right">
+                <div class="form-check form-check-inline">
+                    {% if item.id in favs %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
+                           checked>
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранном</label>
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)">
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+{% endif %}
 {% endfor %}
 {% else %}
 <a>Вы ещё не добавили ни одного товара в избранное</a>
