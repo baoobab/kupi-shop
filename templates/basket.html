@@ -38,7 +38,7 @@
 {% if current_user.is_authenticated %}
 <div class="ll">
     <h4 class="ll" align="center">Товаров в корзине на сумму - {{summ}} рублей</h4>
-    <a class="btn btn-outline-success" href="/pay">Оплатить выбранные</a>
+    <a class="btn btn-outline-success" href="/pay">Оплатить всё</a>
 </div>
 
 {% if ords %}
@@ -62,12 +62,12 @@
             <div>
                 <div class="form-check form-check-inline">
                     {% if item.id in ords %}
-                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                    <input type="checkbox" class="btn-check" id="{{item.id + 100}}" onchange="func(id, 2)"
                            checked>
-                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзине</label>
+                    <label class="btn btn-outline-success" for="{{item.id + 100}}">В корзине</label>
                     {% else %}
-                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
-                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    <input type="checkbox" class="btn-check" id="{{item.id + 100}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 100}}">В корзину</label>
                     {% endif %}
                 </div>
             </div>
