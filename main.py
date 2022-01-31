@@ -83,19 +83,17 @@ def func_run():
             product = Association(
                 user_id=int(str(current_user).split()[1]),
                 favs_id=None,
-                orders_id=int(x) - 6,
+                orders_id=int(x) - 100,
                 o_count=1
             )
             db_sess.add(product)
             db_sess.commit()
-            print(int(x) - 6, y, z, 'added')
         else:
             db_sess = db_session.create_session()
             a = db_sess.query(Association).filter(Association.user_id == int(str(current_user).split()[1]),
-                                                  Association.orders_id == int(x) - 6).first()
+                                                  Association.orders_id == int(x) - 100).first()
             db_sess.delete(a)
             db_sess.commit()
-            print(int(x) - 6, y, z, 'deleted')
     else:
         if y == 'true':
             db_sess = db_session.create_session()
@@ -107,7 +105,6 @@ def func_run():
             )
             db_sess.add(product)
             db_sess.commit()
-            print(int(x), y, z, 'added')
         else:
             db_sess = db_session.create_session()
             a = db_sess.query(Association).filter(Association.user_id == int(str(current_user).split()[1]),
@@ -386,3 +383,5 @@ def login():
 
 if __name__ == '__main__':
     main()
+
+
