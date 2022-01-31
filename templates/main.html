@@ -27,6 +27,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+function alertreg(time){
+    alert('Сначала нужно авторизоваться!');
+}
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <p align="center" style="font-size:35px">Категории</p>
@@ -65,6 +95,7 @@
         <div class="checks" align="right">
             <div>
                 <div class="form-check form-check-inline">
+                    {% if current_user.is_authenticated %}
                     {% if item.id in favs %}
                     <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="func(id, 1)"
                            checked>
@@ -75,13 +106,20 @@
                     {% endif %}
 
                     {% if item.id in ords %}
-                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)"
+                    <input type="checkbox" class="btn-check" id="{{item.id + 100}}" onchange="func(id, 2)"
                            checked>
-                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзине</label>
+                    <label class="btn btn-outline-success" for="{{item.id + 100}}">В корзине</label>
                     {% else %}
-                    <input type="checkbox" class="btn-check" id="{{item.id + 6}}" onchange="func(id, 2)">
-                    <label class="btn btn-outline-success" for="{{item.id + 6}}">В корзину</label>
+                    <input type="checkbox" class="btn-check" id="{{item.id + 100}}" onchange="func(id, 2)">
+                    <label class="btn btn-outline-success" for="{{item.id + 100}}">В корзину</label>
                     {% endif %}
+                    {% else %}
+                    <input type="checkbox" class="btn-check" id="{{item.id}}" onchange="alertreg()">
+                    <label class="btn btn-outline-success" for="{{item.id}}">В избранное</label>
+                    <input type="checkbox" class="btn-check" id="{{item.id + 100}}" onchange="alertreg()">
+                    <label class="btn btn-outline-success" for="{{item.id + 100}}">В корзину</label>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
